@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Style International – Premium Lifestyle Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #E8C97A; --gold-dim: #8a6d2f;
+      --black: #0a0a0a; --dark: #111; --dark2: #1a1a1a; --dark3: #222;
+      --white: #f5f0e8; --gray: #888;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Jost', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: var(--font-body); font-weight: 300; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+    /* PAGE SYSTEM */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* TOPBAR */
+    .topbar { background: var(--gold); color: var(--black); text-align: center; padding: 9px 16px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+
+    /* NAVBAR */
+    nav { position: sticky; top: 0; z-index: 999; background: rgba(10,10,10,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 72px; }
+    .nav-logo { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--gold); letter-spacing: 1px; text-decoration: none; cursor: pointer; }
+    .nav-logo span { color: var(--white); font-weight: 300; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--white); text-decoration: none; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: color 0.3s; cursor: pointer; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { background: var(--gold); color: var(--black) !important; padding: 9px 22px; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--gold-light) !important; color: var(--black) !important; }
+
+    /* HERO */
+    .hero { min-height: 92vh; background: linear-gradient(135deg, #0a0a0a 0%, #1a1208 50%, #0a0a0a 100%); display: flex; align-items: center; justify-content: center; text-align: center; padding: 60px 24px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 70%); }
+    .hero-ring { position: absolute; border-radius: 50%; pointer-events: none; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .hero-inner { position: relative; z-index: 2; max-width: 800px; }
+    .hero-badge { display: inline-block; border: 1px solid var(--gold); color: var(--gold); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; padding: 8px 24px; margin-bottom: 32px; animation: fadeUp 0.8s ease both; }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(52px, 8vw, 100px); font-weight: 300; line-height: 1.0; color: var(--white); margin-bottom: 12px; animation: fadeUp 0.8s 0.15s ease both; }
+    .hero h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub { font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: var(--gray); margin-bottom: 40px; animation: fadeUp 0.8s 0.3s ease both; }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; animation: fadeUp 0.8s 0.45s ease both; }
+
+    /* BUTTONS */
+    .btn-primary { background: var(--gold); color: var(--black); border: none; padding: 16px 44px; font-family: var(--font-body); font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.3s, transform 0.2s; }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(245,240,232,0.3); padding: 16px 44px; font-family: var(--font-body); font-size: 12px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.3s, color 0.3s; }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* STATS */
+    .stats-bar { background: var(--dark2); border-top: 1px solid rgba(201,168,76,0.15); border-bottom: 1px solid rgba(201,168,76,0.15); display: flex; justify-content: center; }
+    .stat-item { flex: 1; max-width: 220px; text-align: center; padding: 28px 20px; border-right: 1px solid rgba(201,168,76,0.1); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: var(--font-display); font-size: 38px; color: var(--gold); font-weight: 600; line-height: 1; }
+    .stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); margin-top: 6px; }
+
+    /* SECTION HEADER */
+    .section-header { text-align: center; padding: 80px 24px 48px; }
+    .section-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .section-title { font-family: var(--font-display); font-size: clamp(36px, 5vw, 60px); font-weight: 300; color: var(--white); line-height: 1.1; }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .section-line { width: 60px; height: 1px; background: var(--gold); margin: 24px auto 0; }
+
+    /* FILTER */
+    .filter-bar { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; padding: 0 24px 48px; }
+    .filter-btn { background: transparent; border: 1px solid rgba(201,168,76,0.3); color: var(--gray); padding: 9px 22px; font-family: var(--font-body); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+    .filter-btn:hover, .filter-btn.active { background: var(--gold); border-color: var(--gold); color: var(--black); font-weight: 600; }
+
+    /* PRODUCTS GRID */
+    .products-section { background: var(--dark); padding-bottom: 80px; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2px; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+    .product-card { background: var(--dark2); overflow: hidden; cursor: pointer; position: relative; transition: transform 0.4s ease; border: 1px solid transparent; }
+    .product-card:hover { transform: translateY(-4px); border-color: rgba(201,168,76,0.3); z-index: 2; }
+    .product-img-wrap { position: relative; overflow: hidden; aspect-ratio: 1/1; background: var(--dark3); }
+    .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .product-card:hover .product-img-wrap img { transform: scale(1.06); }
+    .product-badge { position: absolute; top: 12px; left: 12px; background: var(--gold); color: var(--black); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 10px; }
+    .product-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+    .product-card:hover .product-overlay { opacity: 1; }
+    .overlay-btn { background: var(--gold); color: var(--black); border: none; padding: 12px 28px; font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transform: translateY(10px); transition: transform 0.3s; }
+    .product-card:hover .overlay-btn { transform: translateY(0); }
+    .product-info { padding: 18px 20px 20px; border-top: 1px solid rgba(201,168,76,0.08); }
+    .product-cat { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 8px; }
+    .product-name { font-size: 14px; font-weight: 400; color: var(--white); line-height: 1.4; margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+    .product-price { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--gold); }
+    .cod-tag { font-size: 9px; letter-spacing: 1.5px; color: var(--gray); text-transform: uppercase; border: 1px solid rgba(136,136,136,0.3); padding: 3px 8px; }
+
+    /* ── PRODUCT LANDING PAGE ── */
+    #page-product { background: var(--black); min-height: 100vh; }
+    .product-landing { max-width: 1100px; margin: 0 auto; padding: 60px 24px; }
+    .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--gray); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border: none; background: none; margin-bottom: 48px; transition: color 0.3s; font-family: var(--font-body); }
+    .back-btn:hover { color: var(--gold); }
+    .product-landing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .pl-images { position: sticky; top: 100px; }
+    .pl-main-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: var(--dark2); border: 1px solid rgba(201,168,76,0.1); }
+    .pl-info { padding: 8px 0; }
+    .pl-cat { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .pl-title { font-family: var(--font-display); font-size: clamp(28px, 3vw, 42px); font-weight: 300; color: var(--white); line-height: 1.2; margin-bottom: 24px; }
+    .pl-price-row { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+    .pl-price { font-family: var(--font-display); font-size: 52px; font-weight: 600; color: var(--gold); line-height: 1; }
+    .pl-cod { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: var(--gold); font-size: 11px; letter-spacing: 2px; padding: 6px 14px; text-transform: uppercase; margin-bottom: 32px; }
+    .pl-divider { height: 1px; background: rgba(201,168,76,0.15); margin: 28px 0; }
+    .pl-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .pl-feature { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--gray); }
+    .pl-feature::before { content: '✦'; color: var(--gold); font-size: 10px; flex-shrink: 0; }
+
+    /* ORDER FORM */
+    .order-form-wrap { background: var(--dark2); border: 1px solid rgba(201,168,76,0.2); padding: 36px; margin-top: 0; }
+    .form-title { font-family: var(--font-display); font-size: 24px; color: var(--white); margin-bottom: 6px; font-weight: 400; }
+    .form-sub { font-size: 12px; color: var(--gray); letter-spacing: 1px; margin-bottom: 28px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--dark3); border: 1px solid rgba(201,168,76,0.2); color: var(--white);
+      padding: 13px 16px; font-family: var(--font-body); font-size: 14px; font-weight: 300;
+      outline: none; transition: border-color 0.3s; width: 100%;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: #444; }
+    .form-group select option { background: var(--dark2); }
+    .form-product-preview { background: var(--dark3); border-left: 3px solid var(--gold); padding: 14px 16px; margin-bottom: 20px; }
+    .form-product-preview .fpname { font-size: 13px; color: var(--white); margin-bottom: 4px; }
+    .form-product-preview .fpprice { font-family: var(--font-display); font-size: 22px; color: var(--gold); font-weight: 600; }
+    .submit-btn { width: 100%; background: var(--gold); color: var(--black); border: none; padding: 18px; font-family: var(--font-body); font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; margin-top: 20px; transition: background 0.3s, transform 0.2s; }
+    .submit-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .submit-btn:disabled { background: #444; color: #888; cursor: not-allowed; transform: none; }
+
+    /* SUCCESS STATE */
+    .success-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; align-items: center; justify-content: center; padding: 24px; }
+    .success-overlay.show { display: flex; }
+    .success-box { background: var(--dark2); border: 1px solid rgba(201,168,76,0.3); padding: 56px 48px; text-align: center; max-width: 480px; width: 100%; animation: modalIn 0.4s ease; }
+    .success-icon { font-size: 56px; margin-bottom: 20px; }
+    .success-title { font-family: var(--font-display); font-size: 36px; color: var(--gold); margin-bottom: 12px; font-weight: 400; }
+    .success-msg { font-size: 14px; color: var(--gray); line-height: 1.8; margin-bottom: 28px; }
+    .success-order { display: inline-block; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: var(--gold); font-size: 12px; letter-spacing: 2px; padding: 8px 20px; margin-bottom: 28px; }
+
+    /* WHY SECTION */
+    .why-section { background: var(--black); padding: 80px 24px; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2px; max-width: 1000px; margin: 48px auto 0; }
+    .why-card { background: var(--dark2); padding: 44px 32px; text-align: center; border: 1px solid rgba(201,168,76,0.06); transition: border-color 0.3s; }
+    .why-card:hover { border-color: rgba(201,168,76,0.3); }
+    .why-icon { font-size: 36px; margin-bottom: 16px; }
+    .why-title { font-family: var(--font-display); font-size: 20px; color: var(--gold); margin-bottom: 10px; }
+    .why-text { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+    /* CONTACT */
+    .contact-section { background: var(--dark2); border-top: 1px solid rgba(201,168,76,0.15); padding: 80px 24px; }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 48px; max-width: 900px; margin: 48px auto 0; }
+    .contact-block h3 { font-family: var(--font-display); font-size: 22px; color: var(--gold); margin-bottom: 16px; font-weight: 400; }
+    .contact-block p, .contact-block a { font-size: 14px; color: var(--gray); line-height: 2; text-decoration: none; display: block; transition: color 0.3s; }
+    .contact-block a:hover { color: var(--gold); }
+
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid rgba(201,168,76,0.15); padding: 36px 24px; text-align: center; }
+    .footer-logo { font-family: var(--font-display); font-size: 28px; color: var(--gold); margin-bottom: 16px; }
+    .social-links { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; }
+    .social-link { width: 40px; height: 40px; border: 1px solid rgba(201,168,76,0.3); display: flex; align-items: center; justify-content: center; color: var(--gold); text-decoration: none; font-size: 16px; transition: background 0.3s; }
+    .social-link:hover { background: var(--gold); color: var(--black); }
+    .footer-copy { font-size: 12px; color: var(--gray); letter-spacing: 1px; }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--dark2); border: 1px solid rgba(201,168,76,0.4); color: var(--white); padding: 14px 22px; font-size: 13px; z-index: 99999; transform: translateY(80px); opacity: 0; transition: all 0.4s; border-radius: 2px; max-width: 320px; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.error { border-color: rgba(220,50,50,0.5); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes modalIn { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; padding: 0 12px; }
+      .product-landing-grid { grid-template-columns: 1fr; gap: 32px; }
+      .pl-images { position: static; }
+      .form-grid { grid-template-columns: 1fr; }
+      .stats-bar { flex-wrap: wrap; }
+      .stat-item { min-width: 50%; }
+      .success-box { padding: 36px 24px; }
+    }
+    @media (max-width: 420px) {
+      .products-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">✦ Cash on Delivery Available All Over Pakistan ✦</div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')"><em>Style</em> <span>International</span></div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home');scrollTo('#products')">Shop</a></li>
+    <li><a onclick="showPage('home');scrollTo('#why')">Why Us</a></li>
+    <li><a onclick="showPage('home');scrollTo('#contact')">Contact</a></li>
+    <li><a href="https://wa.me/923453282241" target="_blank" class="nav-cta">WhatsApp Order</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PAGE: HOME                                  -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-ring" style="width:600px;height:600px;border:1px solid rgba(201,168,76,0.07);"></div>
+    <div class="hero-ring" style="width:800px;height:800px;border:1px solid rgba(201,168,76,0.04);"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">✦ Premium Lifestyle Store – Karachi ✦</div>
+      <h1>Style<br><em>International</em></h1>
+      <p class="hero-sub">Cosmetics · Jewelry · Home Decor · Electronics</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="scrollTo('#products')">Shop Collection</button>
+        <a href="https://wa.me/923453282241" target="_blank" class="btn-outline">WhatsApp Order</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Products</div></div>
+    <div class="stat-item"><div class="stat-num">COD</div><div class="stat-label">Cash on Delivery</div></div>
+    <div class="stat-item"><div class="stat-num">PK</div><div class="stat-label">Nationwide Delivery</div></div>
+    <div class="stat-item"><div class="stat-num">24/7</div><div class="stat-label">WhatsApp Support</div></div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section class="products-section" id="products">
+    <div class="section-header">
+      <div class="section-tag">✦ Our Collection</div>
+      <h2 class="section-title">Curated <em>Luxury</em><br>for Every Lifestyle</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterProducts('all',this)">All Products</button>
+      <button class="filter-btn" onclick="filterProducts('Cosmetics',this)">Cosmetics</button>
+      <button class="filter-btn" onclick="filterProducts('Jewelry / Bridal Accessories',this)">Jewelry</button>
+      <button class="filter-btn" onclick="filterProducts('Wall Art / Home Decor Frames',this)">Home Decor</button>
+      <button class="filter-btn" onclick="filterProducts('Electronic Accessories',this)">Electronics</button>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why-section" id="why">
+    <div class="section-header" style="padding-bottom:0">
+      <div class="section-tag">✦ Why Choose Us</div>
+      <h2 class="section-title">Shopping Made <em>Simple</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon">📦</div><div class="why-title">Cash on Delivery</div><p class="why-text">Pay only when your order arrives. No advance payment needed.</p></div>
+      <div class="why-card"><div class="why-icon">🚚</div><div class="why-title">Nationwide Delivery</div><p class="why-text">We deliver across all of Pakistan — Karachi to Lahore to Peshawar.</p></div>
+      <div class="why-card"><div class="why-icon">💬</div><div class="why-title">WhatsApp Support</div><p class="why-text">Order instantly via WhatsApp. Quick responses, easy tracking.</p></div>
+      <div class="why-card"><div class="why-icon">✨</div><div class="why-title">Premium Quality</div><p class="why-text">Every product is carefully selected for quality and style.</p></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="section-header" style="padding-bottom:0">
+      <div class="section-tag">✦ Get in Touch</div>
+      <h2 class="section-title">Contact <em>Us</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-block">
+        <h3>Call / WhatsApp</h3>
+        <a href="tel:+923453282241">+92 345 3282241</a>
+        <a href="tel:+923343959465">+92 334 3959465</a>
+        <a href="mailto:nayyarahmed1954@gmail.com">nayyarahmed1954@gmail.com</a>
+      </div>
+      <div class="contact-block">
+        <h3>Visit Our Store</h3>
+        <p>Plot No. 30-C, Street A<br>Saba Commercial, Phase V Ext<br>DHA Karachi, Pakistan</p>
+      </div>
+      <div class="contact-block">
+        <h3>Order Now</h3>
+        <a href="https://wa.me/923453282241" target="_blank" style="color:var(--gold);font-weight:600;">→ WhatsApp: +92 345 3282241</a>
+        <p style="margin-top:12px;">Browse collection and message us the product name to place your order.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Style <em style="font-style:italic">International</em></div>
+    <div class="social-links">
+      <a href="https://facebook.com/styleinternational" target="_blank" class="social-link">f</a>
+      <a href="https://instagram.com/styleinternational" target="_blank" class="social-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://wa.me/923453282241" target="_blank" class="social-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+    </div>
+    <p class="footer-copy">© 2025 Style International, Karachi — All Rights Reserved</p>
+  </footer>
+
+</div><!-- end page-home -->
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PAGE: PRODUCT                               -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="page-product" class="page">
+  <div class="product-landing">
+
+    <button class="back-btn" onclick="showPage('home')">← Back to Shop</button>
+
+    <div class="product-landing-grid">
+
+      <!-- LEFT: IMAGE -->
+      <div class="pl-images">
+        <img class="pl-main-img" id="pl-img" src="" alt="" />
+      </div>
+
+      <!-- RIGHT: INFO + FORM -->
+      <div class="pl-info">
+        <div class="pl-cat" id="pl-cat"></div>
+        <h1 class="pl-title" id="pl-title"></h1>
+        <div class="pl-price-row">
+          <div class="pl-price" id="pl-price"></div>
+        </div>
+        <div class="pl-cod">✓ Cash on Delivery &nbsp;·&nbsp; Nationwide Delivery</div>
+
+        <div class="pl-features">
+          <div class="pl-feature">Authentic product, exactly as shown</div>
+          <div class="pl-feature">Delivered to your doorstep anywhere in Pakistan</div>
+          <div class="pl-feature">Pay cash when order arrives — zero risk</div>
+          <div class="pl-feature">Customer support via WhatsApp</div>
+        </div>
+
+        <div class="pl-divider"></div>
+
+        <!-- ORDER FORM -->
+        <div class="order-form-wrap">
+          <div class="form-title">Place Your Order</div>
+          <div class="form-sub">Fill in your details and we'll deliver to your door</div>
+
+          <div class="form-product-preview">
+            <div class="fpname" id="form-product-name"></div>
+            <div class="fpprice" id="form-product-price"></div>
+          </div>
+
+          <div class="form-grid" id="orderForm">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" id="f-name" placeholder="e.g. Ahmed Ali" required />
+            </div>
+            <div class="form-group">
+              <label>Phone Number *</label>
+              <input type="tel" id="f-phone" placeholder="03XX XXXXXXX" required />
+            </div>
+            <div class="form-group">
+              <label>City *</label>
+              <select id="f-city" required>
+                <option value="">Select your city</option>
+                <option>Karachi</option><option>Lahore</option><option>Islamabad</option>
+                <option>Rawalpindi</option><option>Faisalabad</option><option>Multan</option>
+                <option>Peshawar</option><option>Quetta</option><option>Sialkot</option>
+                <option>Gujranwala</option><option>Hyderabad</option><option>Abbottabad</option>
+                <option>Bahawalpur</option><option>Sargodha</option><option>Sukkur</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Postal / Area Code</label>
+              <input type="text" id="f-postal" placeholder="Optional" />
+            </div>
+            <div class="form-group full">
+              <label>Full Address *</label>
+              <input type="text" id="f-address" placeholder="House No., Street, Area, City" required />
+            </div>
+          </div>
+
+          <button class="submit-btn" id="submitBtn" onclick="submitOrder()">
+            Confirm Order — Cash on Delivery
+          </button>
+
+          <p style="font-size:11px;color:#555;text-align:center;margin-top:14px;letter-spacing:1px;">
+            By placing order you agree to receive a delivery confirmation call
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div><!-- end page-product -->
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-box">
+    <div class="success-icon">🎉</div>
+    <div class="success-title">Order Placed!</div>
+    <div class="success-order" id="successOrderNo"></div>
+    <div class="success-msg">
+      Thank you! Your order has been received.<br>
+      Our team will call you within <strong style="color:var(--gold)">24 hours</strong> to confirm delivery details.<br><br>
+      <span style="color:var(--gold)">Cash on Delivery</span> — pay when it arrives at your door.
+    </div>
+    <button class="btn-primary" style="width:100%" onclick="closeSuccess()">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── IMPORTANT: Replace this with your Google Apps Script URL after deployment ───
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbe2k6jw5hTpw3y90GApIjRVz9CqY2ToT4syTmXSPgpelI-DLzP9bFGXnelnAjor_WcQ/exec";
+
+const products = [
+  {id:0,title:"Motivational Wall Art – 10-Piece Yellow & Black Wooden Sticky Phototile Frame Set",type:"Wall Art / Home Decor Frames",price:1100,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/modern-10-piece-yellow-black-motivational-wall-art-set-wooden-sticky-phototile-frames-1.jpg?v=1775487816"},
+  {id:1,title:"16 Colors Crystal Rose Touch Lamp – USB Rechargeable Acrylic Bedside Table Lamp",type:"Wall Art / Home Decor Frames",price:1990,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/download_60.jpg?v=1775487775"},
+  {id:2,title:"16 Pcs Manicure & Pedicure Kit – Stainless Steel Nail Care & Grooming Set",type:"Cosmetics",price:1350,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/16-piece-manicure-pedicure-kit-premium-stainless-steel-nail-care-set-for-hand-foot-facial-grooming-travel-friendly-case-included-16-pcs-nail-care-set-beauty-essentials-set-1.jpg?v=1775487769"},
+  {id:3,title:"2 in 1 Electric Eyebrow Trimmer & Facial Shaver – Rechargeable Hair Remover for Women",type:"Electronic Accessories",price:1230,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/eyebrow-trimmer.jpg?v=1775487776"},
+  {id:4,title:"24 Pcs O.TWO.O Green Matte Nails Set with Nail Accessories – Stylish Press-On Kit",type:"Cosmetics",price:1299,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/24pcs-o-two-o-green-matte-nails-with-accessories-1.jpg?v=1775487762"},
+  {id:5,title:"3-in-1 Elegant Zircon Bangle Set for Women – Silver & Gold Plated Bangles",type:"Jewelry / Bridal Accessories",price:580,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/qpt-996-3-in-1-elegant-zircon-bangle-set-for-women-premium-silver-golden-plated-bangles-with-sparkling-zircon-stones-stylish-party-wear-everyday-jewelry-1.png?v=1775487789"},
+  {id:6,title:"360° Rotating Cosmetic Organizer – Black Makeup Storage Box",type:"Cosmetics",price:2500,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/360-degree-rotating-cosmetic-organizer-3.webp?v=1775487760"},
+  {id:7,title:"3D Acrylic Mirror Wall Decor – 24-Piece DIY Stickers for Modern Home",type:"Wall Art / Home Decor Frames",price:999,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/imgi_53_7d8f18bb20716df906dcb4f6b9c4aa81.jpg?v=1775487805"},
+  {id:8,title:"5 in 1 Hair Dryer Brush – Electric Blow Dryer, Straightener & Curling Wand Kit",type:"Electronic Accessories",price:5500,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/hair-dryer-brush-5-in-1-electric-blow-dryer-hair-comb-curling-wand-detachable-brush-kit-negative-ion-straightener-hair-curler-8-4.jpg?v=1775487790"},
+  {id:9,title:"6 Motivational Quote Frames – Wooden Canvas Phototiles (8×11\") for Wall Decor",type:"Wall Art / Home Decor Frames",price:1050,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/imgi_21_515130173_17881378452341420_4078308743338447.jpg?v=1775487807"},
+  {id:10,title:"6 Pcs Matte Lip Gloss Set – Waterproof & Long-Lasting Lip Colors",type:"Cosmetics",price:960,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/6-piece-matte-lip-gloss-set-waterproof-lip-color-kit-for-all-day-wear-1.png?v=1775487778"},
+  {id:11,title:"7-in-1 Complete Makeup Bundle – All-in-One Cosmetics Kit for Face, Eyes & Lips",type:"Cosmetics",price:785,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/7-in-1-complete-makeup-bundle-all-in-one-cosmetic-kit-for-face-eyes-lips-2-1.png?v=1775487785"},
+  {id:12,title:"7-Inch Eiffel Tower Statue – Bronze Alloy Paris Souvenir | Home & Office Decor",type:"Wall Art / Home Decor Frames",price:860,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/7-inch-eiffel-tower-statue-decor-bronze-alloy-metal-paris-souvenir-for-home-office-events-1.png?v=1775487795"},
+  {id:13,title:"7 Pcs Mini USB LED Light Bulbs – Portable Plug-in Night Lamps",type:"Electronic Accessories",price:575,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/7-pcs-mini-usb-led-light-bulbs-portable-plug-in-night-lamps-for-laptops-power-banks-usb-ports-1.jpg?v=1775487796"},
+  {id:14,title:"9-Piece Islamic Wall Frame Set – Wooden Photo Tile Canvas Boards",type:"Wall Art / Home Decor Frames",price:1480,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/decoration-home-decoration-item-9-pcs-islamic-frame-board-wall-decor-photo-on-wall-photo-tile-canvas-art-decor-for-home-easy-set-up-with-both-side-tape-1.jpg?v=1775487815"},
+  {id:15,title:"Adjustable Exerciser Hand Gripper With Counter",type:"Health & Care",price:1250,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/WhatsApp-Image-2025-02-20-at-7.3_1.png?v=1775487821"},
+  {id:16,title:"Aimeisi 6 Pcs Hair Comb Set – Durable Styling Combs for Medium & Long Hair",type:"Cosmetics",price:790,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/aimeisi-multifunctional-hair-comb-set-6-pcs-durable-styling-combs-for-medium-to-long-hair-1.webp?v=1775487780"},
+  {id:17,title:"Blackhead Remover & Facial Peeling Tool – Leather Grip Skincare Accessory",type:"Electronic Accessories",price:1650,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/download_72.jpg?v=1775487768"},
+  {id:18,title:"Cosmetics Elegance Brush Set – Studded White Makeup Brushes Kit",type:"Cosmetics",price:2200,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/cosmetics-elegance-brush-set-studded-elegance-white-2.jpg?v=1775487763"},
+  {id:19,title:"Elegant Double Layer Heart Pearl Pendant Necklace – Women's Party Jewelry",type:"Jewelry / Bridal Accessories",price:699,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/elegant-double-layer-heart-pearl-pendent-necklace-party-jewelry-gifts-accessories-for-women-1.jpg?v=1775487774"},
+  {id:20,title:"Ethnic Jhumkay & Bindya Jewelry Set – Artificial Blue Stone Jhumke for Women",type:"Jewelry / Bridal Accessories",price:875,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/traditional-brass-jhumke-bindya-set-with-blue-artificial-stone-ethnic-jewelry-for-women-1.png?v=1775487803"},
+  {id:21,title:"Foldable Jewelry Box Organizer with Mirror – Dustproof Storage & Display Case",type:"Jewelry / Bridal Accessories",price:1350,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/jewellery-box-organiser-with-mirror-foldable-exquisite-dustproof-jewelry-storage-case-multi-function-screen-shaped-metal-display-jewelry-stand-for-earring-necklace-bracelet-random-col_7d2e40f9-5450-48f2-863f-2fe605d7639b.jpg?v=1775487799"},
+  {id:22,title:"Fv Foundation Waterproof",type:"Cosmetics",price:1350,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/fv-waterproof-foundation-with-me_3.png?v=1775487820"},
+  {id:23,title:"Golden Brass Bangles for Women – 1 Pair Artificial Jewelry in Bright Gold Finish",type:"Jewelry / Bridal Accessories",price:980,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/golden-brass-bangles-for-women-1-pair-artificial-jewelry-bangles-in-bright-gold-color-for-daily-use-festive-wear-and-party-styling-1.png?v=1775487797"},
+  {id:24,title:"Islamic Allah Muhammad (SAW) 3D Wood Wall Clock – Home & Office Decoration",type:"Wall Art / Home Decor Frames",price:1050,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/islamic-allah-muhammad-saw-3d-wood-wall-clock-for-home-and-office-decoration_-_1.webp?v=1775487809"},
+  {id:25,title:"Islamic Wooden Wall Clock 3D Laser Cut – Inna Allaha 'ala Kulli Shay'in Qadeer",type:"Wall Art / Home Decor Frames",price:850,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/3d-islamic-wooden-wall-clock-inna-allaha-ala-kulli-shayin-qadeer-elegant-islamic-wall-decor-made-from-3mm-lasani-wood-premium-laser-cut-design-perfect-for-home-mosqu-1.jpg?v=1775487811"},
+  {id:26,title:"Marble Jade Roller & Ice Roller Combo Pack | 3-in-1 Facial Massager",type:"Cosmetics",price:1250,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/combo-pack-marble-jade-roller-with-stone-marble-ice-roller-facial-massage-derma-roller-pack-of-3-2-1.jpg?v=1775487782"},
+  {id:27,title:"Medora Lipstick Pack of 6 – Creamy & Long-Lasting Lip Colors",type:"Cosmetics",price:1450,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/medora-lipstick-pack-of-6-creamy-long-lasting-smooth-finish-lip-colors-1.png?v=1775487783"},
+  {id:28,title:"Mini Portable Hair Straightener – Air Smooth, Silky, Frizz-free",type:"Electronic Accessories",price:895,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/mini-portable-hair-straightner-air-smooth-silky-frizz-free-and-healthy-with-packing-box-random-color-3-1.jpg?v=1775487792"},
+  {id:29,title:"Mini Portable Massage Gun – Compact Handheld Relaxation & Gym Recovery Device",type:"Electronic Accessories",price:1500,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/download_39.jpg?v=1775487786"},
+  {id:30,title:"Mocallure 12 Pcs Lip Gloss Set – High Pigment Liquid Gloss Long-lasting Shine",type:"Cosmetics",price:2150,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/download_48.jpg?v=1775487779"},
+  {id:31,title:"Modern Islamic Calligraphy Frames Set – 5pcs Blue Wall Décor (Fabi Ayyi Ala)",type:"Wall Art / Home Decor Frames",price:1250,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/set-of-5pcs-islamic-calligraphy-fabi-ayi-alla-wall-frame-home-decor-blue_-_1.jpg?v=1775487812"},
+  {id:32,title:"Nail Fungus Treatment",type:"Health & Care",price:990,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/nail-fungus-treatment-stop-fungal-growth-effective-fingernail-10ml-27283-714_2_17445d29-d82f-4204-98dc-0f7ede589ae1.jpg?v=1775487818"},
+  {id:33,title:"Nova 2-in-1 Hair Straightener & Curler – NH-2009 | Quick Heat Ceramic Styling Tool",type:"Electronic Accessories",price:1500,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/nova-2-in-1-hair-straightener-curler-model-nh-2009-quick-heat-up-ceramic-plates-for-smooth-straightening-effortless-curls-portable-dual-use-styling-tool-for-all-hair-types-7.webp?v=1775487793"},
+  {id:34,title:"Pink Wall Collage Pack of 20 – Aesthetic Bedroom Décor Stickers & Photo Prints",type:"Wall Art / Home Decor Frames",price:750,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/pack-of-20-pink-wall-collage-set-aesthetic-stickers-for-bedroom-decor-1.jpg?v=1775487814"},
+  {id:35,title:"Portable Handheld Muscle Relaxation & Massage Device – Travel-Friendly Therapy Tool",type:"Electronic Accessories",price:970,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/download_78.jpg?v=1775487766"},
+  {id:36,title:"Portable Mini Electric Massager – EMS Body Relaxation & Muscle Comfort Patch",type:"Electronic Accessories",price:699,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/download_86.jpg?v=1775487765"},
+  {id:37,title:"PQT-985 Bow Shape Zircon Korean Earrings – Elegant Golden Color Women's Jewelry",type:"Jewelry / Bridal Accessories",price:640,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/touch-of-glamour-to-your-look-with-these-bow-shape-zircon-korean-earrings-color-golden-1.png?v=1775487771"},
+  {id:38,title:"PQT-992 Bow Shape Pearl Pendant Necklace – Elegant Women's Jewelry",type:"Jewelry / Bridal Accessories",price:689,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/download_66.jpg?v=1775487774"},
+  {id:39,title:"Tasbeeh-e-Fatima Wooden Wall Decor – 3D Arabic Islamic Calligraphy Wall Art",type:"Wall Art / Home Decor Frames",price:680,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/imgi_185_61aR4KCxsJL._SL1140.jpg?v=1775487804"},
+  {id:40,title:"Travel Jewelry Organizer | Portable Storage Box with Mirror – Compact Case",type:"Jewelry / Bridal Accessories",price:890,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/jewelry-organizer-box-portable-jewelry-storage-box-sleek-portable-multi-functional-travel-jewelry-organizer-durable-compact-ring-necklace-earring-storage-boxes-with-mirror-for-travel_f3b6df6d-c6d0-4e16-a7a9-543771d31a8d.png?v=1775487802"},
+  {id:41,title:"Umrah Saving Box – Islamic Money Saving Bank",type:"Saving box",price:1099,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/dfsdrgsrghrthd.png?v=1775487787"},
+  {id:42,title:"Velvet Jewelry Organizer Box with Glass Cover – Display & Storage",type:"Jewelry / Bridal Accessories",price:980,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/mistico-velvet-carrying-case-with-glass-cover-jewelry-ring-display-box-tray-holder-storage-box-organizer-earrings-bracelet-showcase-1.jpg?v=1775487800"},
+  {id:43,title:"Vintage T9 Hair And Beard Trimmer",type:"Electronic Accessories",price:1350,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/3-8-600x826-1.png?v=1775487822"},
+  {id:44,title:"Wooden World Map Wall Clock – 3D Digital Design, 24×24 Inches",type:"Wall Art / Home Decor Frames",price:999,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/3d-digital-world-map-wall-clock-24x24-inches-1.jpg?v=1775487808"},
+  {id:45,title:"Fashion Accessories Bundle",type:"Cosmetics",price:8250,img:"https://cdn.shopify.com/s/files/1/0730/3764/3854/files/imgi_19_e598b34f083900216410e52b_6fa8509e-b35a-4703-927e-82f5ed58d938.png?v=1775487829"}
+];
+
+let currentProduct = null;
+
+// ── RENDER GRID ──
+function renderProducts(list) {
+  document.getElementById('productsGrid').innerHTML = list.map(p => `
+    <div class="product-card" onclick="openProduct(${p.id})">
+      <div class="product-img-wrap">
+        <img src="${p.img}" alt="${p.title}" loading="lazy" onerror="this.src='https://placehold.co/400x400/1a1a1a/c9a84c?text=Style+International'" />
+        <div class="product-badge">COD</div>
+        <div class="product-overlay"><button class="overlay-btn">Order Now</button></div>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">${p.type||'General'}</div>
+        <div class="product-name">${p.title}</div>
+        <div class="product-footer">
+          <div class="product-price">Rs. ${p.price.toLocaleString()}</div>
+          <div class="cod-tag">COD</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+renderProducts(products);
+
+function filterProducts(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(type === 'all' ? products : products.filter(p => p.type === type));
+}
+
+// ── OPEN PRODUCT PAGE ──
+function openProduct(id) {
+  currentProduct = products[id];
+  document.getElementById('pl-img').src = currentProduct.img;
+  document.getElementById('pl-img').alt = currentProduct.title;
+  document.getElementById('pl-cat').textContent = currentProduct.type || 'General';
+  document.getElementById('pl-title').textContent = currentProduct.title;
+  document.getElementById('pl-price').textContent = 'Rs. ' + currentProduct.price.toLocaleString();
+  document.getElementById('form-product-name').textContent = currentProduct.title;
+  document.getElementById('form-product-price').textContent = 'Rs. ' + currentProduct.price.toLocaleString() + ' — Cash on Delivery';
+  // clear form
+  ['f-name','f-phone','f-city','f-postal','f-address'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el.tagName === 'SELECT') el.selectedIndex = 0; else el.value = '';
+  });
+  document.getElementById('submitBtn').disabled = false;
+  document.getElementById('submitBtn').textContent = 'Confirm Order — Cash on Delivery';
+  showPage('product');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── PAGE SWITCHING ──
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function scrollTo(selector) {
+  setTimeout(() => {
+    const el = document.querySelector(selector);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 100);
+}
+
+// ── SUBMIT ORDER ──
+async function submitOrder() {
+  const name    = document.getElementById('f-name').value.trim();
+  const phone   = document.getElementById('f-phone').value.trim();
+  const city    = document.getElementById('f-city').value;
+  const address = document.getElementById('f-address').value.trim();
+
+  if (!name)    { showToast('⚠️ Please enter your full name'); return; }
+  if (!phone)   { showToast('⚠️ Please enter your phone number'); return; }
+  if (!city)    { showToast('⚠️ Please select your city'); return; }
+  if (!address) { showToast('⚠️ Please enter your delivery address'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Placing Order...';
+
+  const orderData = {
+    fullName:    name,
+    phone:       phone,
+    city:        city,
+    address:     address,
+    productName: currentProduct.title,
+    price:       currentProduct.price
+  };
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData)
+    });
+    // no-cors means we can't read response, but if no error thrown it went through
+    showSuccess();
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Confirm Order — Cash on Delivery';
+    showToast('❌ Could not place order. Please try WhatsApp instead.', true);
+  }
+}
+
+function showSuccess() {
+  const orderNo = 'ORD-' + Date.now().toString().slice(-6);
+  document.getElementById('successOrderNo').textContent = '📦 Order #' + orderNo;
+  document.getElementById('successOverlay').classList.add('show');
+}
+
+function closeSuccess() {
+  document.getElementById('successOverlay').classList.remove('show');
+  showPage('home');
+}
+
+// ── TOAST ──
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  setTimeout(() => t.className = 'toast', 3500);
+}
+</script>
+</body>
+</html>
