@@ -282,7 +282,7 @@
         <h3>Call / WhatsApp</h3>
         <a href="tel:+923453282241">+92 345 3282241</a>
         <a href="tel:+923343959465">+92 334 3959465</a>
-        <a href="mailto:nayyarahmed1954@gmail.com">nayyarahmed1954@gmail.com</a>
+        <a href="/cdn-cgi/l/email-protection#214f405858405340494c44451018141561464c40484d0f424e4c"><span class="__cf_email__" data-cfemail="640a051d1d0516050c090100555d5150240309050d084a070b09">[email&#160;protected]</span></a>
       </div>
       <div class="contact-block">
         <h3>Visit Our Store</h3>
@@ -419,7 +419,7 @@
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ─── IMPORTANT: Replace this with your Google Apps Script URL after deployment ───
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbe2k6jw5hTpw3y90GApIjRVz9CqY2ToT4syTmXSPgpelI-DLzP9bFGXnelnAjor_WcQ/exec";
 
@@ -504,7 +504,14 @@ function filterProducts(type, btn) {
 
 // ── OPEN PRODUCT PAGE ──
 function openProduct(id) {
+  // Update URL so this product page has a shareable/ad link
+  history.pushState({ page: 'product', id: id }, '', '?product=' + id);
+  loadProductPage(id);
+}
+
+function loadProductPage(id) {
   currentProduct = products[id];
+  if (!currentProduct) { showPage('home'); return; }
   document.getElementById('pl-img').src = currentProduct.img;
   document.getElementById('pl-img').alt = currentProduct.title;
   document.getElementById('pl-cat').textContent = currentProduct.type || 'General';
@@ -512,9 +519,11 @@ function openProduct(id) {
   document.getElementById('pl-price').textContent = 'Rs. ' + currentProduct.price.toLocaleString();
   document.getElementById('form-product-name').textContent = currentProduct.title;
   document.getElementById('form-product-price').textContent = 'Rs. ' + currentProduct.price.toLocaleString() + ' — Cash on Delivery';
+  // Update page title for Meta Ads / SEO
+  document.title = currentProduct.title + ' – Style International';
   // clear form
-  ['f-name','f-phone','f-city','f-postal','f-address'].forEach(id => {
-    const el = document.getElementById(id);
+  ['f-name','f-phone','f-city','f-postal','f-address'].forEach(fid => {
+    const el = document.getElementById(fid);
     if (el.tagName === 'SELECT') el.selectedIndex = 0; else el.value = '';
   });
   document.getElementById('submitBtn').disabled = false;
@@ -528,6 +537,10 @@ function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (name === 'home') {
+    history.pushState({ page: 'home' }, '', window.location.pathname);
+    document.title = 'Style International – Premium Lifestyle Store';
+  }
 }
 
 function scrollTo(selector) {
@@ -536,6 +549,25 @@ function scrollTo(selector) {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   }, 100);
 }
+
+// ── READ URL ON PAGE LOAD (for Meta Ads direct links) ──
+document.addEventListener('DOMContentLoaded', function() {
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get('product');
+  if (productId !== null && products[parseInt(productId)]) {
+    document.getElementById('page-home').classList.remove('active');
+    loadProductPage(parseInt(productId));
+  }
+});
+
+// ── HANDLE BROWSER BACK / FORWARD BUTTON ──
+window.addEventListener('popstate', function(e) {
+  if (e.state && e.state.page === 'product') {
+    loadProductPage(e.state.id);
+  } else {
+    showPage('home');
+  }
+});
 
 // ── SUBMIT ORDER ──
 async function submitOrder() {
@@ -589,13 +621,4 @@ function closeSuccess() {
   showPage('home');
 }
 
-// ── TOAST ──
-function showToast(msg, isError = false) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show' + (isError ? ' error' : '');
-  setTimeout(() => t.className = 'toast', 3500);
-}
-</script>
-</body>
-</html>
+// ── TOAST
